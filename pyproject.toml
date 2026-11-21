@@ -1,7 +1,7 @@
 [project]
-name = "insurance-agent"
+name = "self-introduction-agent"
 version = "0.1.0"
-description = "AI Agent 保险顾问后端"
+description = "个人自我介绍 AI Agent 后端"
 requires-python = ">=3.13"
 dependencies = [
     "fastapi",
