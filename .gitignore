@@ -1,0 +1,18 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# 环境变量与密钥（绝不提交）
+.env
+.env.*
+!.env.example
+
+# 日志
+logs/
