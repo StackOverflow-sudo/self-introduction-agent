@@ -13,6 +13,12 @@ class Settings(BaseSettings):
     DB_USER: str = "root"
     DB_PASSWORD: str = ""
     DB_NAME: str = "insurance"
+    LLM_API_KEY: str = ""
+    LLM_BASE_URL: str = "https://api.deepseek.com"
+    LLM_MODEL: str = "deepseek-chat"
+    PG_DSN: str = "postgresql://postgres:pgpass@192.168.245.100:5432/agentdb"
+    CHROMA_DIR: str = r"D:\agent\chroma_db"
+    KNOWLEDGE_DB_PATH: str = r"D:\agent\milvus_knowledge.db"
 
     @property
     def database_url(self) -> str:
@@ -23,3 +29,4 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
+
