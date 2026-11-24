@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     PG_DSN: str = "postgresql://postgres:pgpass@192.168.245.100:5432/agentdb"
     CHROMA_DIR: str = r"D:\agent\chroma_db"
     KNOWLEDGE_DB_PATH: str = r"D:\agent\milvus_knowledge.db"
+    DASHSCOPE_API_KEY: str = ""
 
     @property
     def database_url(self) -> str:

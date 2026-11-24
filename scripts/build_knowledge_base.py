@@ -6,7 +6,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 import glob
 import os
 
-from langchain_ollama import OllamaEmbeddings
+from app.agent.knowledge import get_embedding
 from langchain_text_splitters import (
     MarkdownHeaderTextSplitter,
     RecursiveCharacterTextSplitter,
@@ -41,7 +41,7 @@ def main():
     ip.add_index(field_name="vector", index_type="AUTOINDEX", metric_type="COSINE")
     client.create_collection("knowledge_children", schema=schema, index_params=ip)
 
-    emb = OllamaEmbeddings(model="bge-m3")
+    emb = get_embedding()  
     md_split = MarkdownHeaderTextSplitter(headers_to_split_on=[("#", "h1"), ("##", "h2")])
     child_split = RecursiveCharacterTextSplitter(chunk_size=400, chunk_overlap=50)
 

@@ -1,10 +1,9 @@
 from functools import lru_cache
 
 from langchain_core.tools import tool
-from langchain_ollama import OllamaEmbeddings
 from pymilvus import MilvusClient
 from sqlalchemy import text
-
+from langchain_community.embeddings import DashScopeEmbeddings
 from app.core.config import settings
 from app.db.session import engine
 
@@ -30,8 +29,11 @@ def get_milvus() -> MilvusClient:
 
 
 @lru_cache(maxsize=1)
-def get_embedding() -> OllamaEmbeddings:
-    return OllamaEmbeddings(model="bge-m3", base_url="http://127.0.0.1:11434")
+def get_embedding() -> DashScopeEmbeddings:
+    return DashScopeEmbeddings(
+        model="text-embedding-v4",
+        dashscope_api_key=settings.DASHSCOPE_API_KEY,
+    )
 
 
 def retrieve_parents(query: str, k: int = 5, max_parents: int = 3) -> list[dict]:

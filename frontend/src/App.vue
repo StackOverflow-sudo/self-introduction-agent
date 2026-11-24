@@ -1,12 +1,23 @@
 <script setup>
 import { ref, nextTick } from 'vue'
 
+// 生成会话ID：HTTPS/localhost 用原生 UUID，HTTP 公网 IP 下降级
+function newId() {
+  if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+    return window.crypto.randomUUID()
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0
+    return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16)
+  })
+}
+
 const input = ref('')
 const messages = ref([])                                  // { role, content }
-const threadId = ref(crypto.randomUUID())                 // 会话ID（浏览器生成）
+const threadId = ref(newId())                             // 会话ID
 const loading = ref(false)
 const listEl = ref(null)
-const references = ref([])      // 引用片段（来自 references 事件）
+const references = ref([])                                // 引用片段
 
 async function scrollToBottom() {
   await nextTick()
@@ -14,7 +25,7 @@ async function scrollToBottom() {
 }
 
 function newSession() {
-  threadId.value = crypto.randomUUID()
+  threadId.value = newId()
   messages.value = []
   references.value = []
 }
