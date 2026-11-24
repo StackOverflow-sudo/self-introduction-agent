@@ -1,5 +1,9 @@
-from fastapi import APIRouter, Depends, Request
+import json
 
+from fastapi import APIRouter, Depends, Request
+from fastapi.responses import StreamingResponse
+
+from app.agent.knowledge import get_last_refs
 from app.schemas.chat import ChatRequest, ChatResponse
 from app.services.chat import ChatService
 
@@ -16,10 +20,6 @@ def chat_endpoint(req: ChatRequest, svc: ChatService = Depends(get_chat_service)
     reply, thread_id = svc.chat(req.message, req.thread_id)
     return ChatResponse(reply=reply, thread_id=thread_id)
 
-import json
-
-from fastapi.responses import StreamingResponse
-
 
 @router.post("/stream")
 def chat_stream(req: ChatRequest, svc: ChatService = Depends(get_chat_service)):
@@ -27,6 +27,12 @@ def chat_stream(req: ChatRequest, svc: ChatService = Depends(get_chat_service)):
         try:
             for text in svc.stream(req.message, req.thread_id):
                 yield f"data: {json.dumps({'text': text}, ensure_ascii=False)}\n\n"
+
+            # 引用溯源：把检索到的父块片段以 custom 事件推给前端
+            refs = get_last_refs()
+            if refs:
+                yield f"event: references\ndata: {json.dumps(refs, ensure_ascii=False)}\n\n"
+
             yield "data: [DONE]\n\n"
         except Exception as e:
             yield f"data: {json.dumps({'error': str(e)}, ensure_ascii=False)}\n\n"

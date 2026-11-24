@@ -1,6 +1,2 @@
-from langchain_ollama import OllamaEmbeddings
-
-emb = OllamaEmbeddings(model="bge-m3")
-vec = emb.embed_query("今天天气真好")
-print("维度:", len(vec))
-print("前 5 个值:", vec[:5])
+from app.agent.knowledge import search_knowledge
+print(search_knowledge.invoke({"query": "你的笔记里 LangChain 是什么"})[:400])

@@ -6,6 +6,7 @@ const messages = ref([])                                  // { role, content }
 const threadId = ref(crypto.randomUUID())                 // 会话ID（浏览器生成）
 const loading = ref(false)
 const listEl = ref(null)
+const references = ref([])      // 引用片段（来自 references 事件）
 
 async function scrollToBottom() {
   await nextTick()
@@ -15,6 +16,7 @@ async function scrollToBottom() {
 function newSession() {
   threadId.value = crypto.randomUUID()
   messages.value = []
+  references.value = []
 }
 
 async function send() {
@@ -53,18 +55,27 @@ async function send() {
       buffer = parts.pop()                    // 最后一段可能不完整，留到下次
 
       for (const part of parts) {
-        const line = part.trim()
-        if (!line.startsWith('data:')) continue
-        const data = line.slice(5).trim()
-        if (data === '[DONE]') return
+        const lines = part.split('\n')
+        let ev = 'message'
+        let dataLine = ''
+        for (const line of lines) {
+          if (line.startsWith('event:')) ev = line.slice(6).trim()
+          else if (line.startsWith('data:')) dataLine = line.slice(5).trim()
+        }
+        if (!dataLine) continue
+        if (dataLine === '[DONE]') return
 
         try {
-          const obj = JSON.parse(data)
-          if (obj.text) {
-            aiMsg.content += obj.text
-            scrollToBottom()
+          const obj = JSON.parse(dataLine)
+          if (ev === 'references') {
+            references.value = obj            // 引用片段
+          } else {
+            if (obj.text) {
+              aiMsg.content += obj.text
+              scrollToBottom()
+            }
+            if (obj.error) aiMsg.content += `\n[错误] ${obj.error}`
           }
-          if (obj.error) aiMsg.content += `\n[错误] ${obj.error}`
         } catch { /* 忽略不完整 JSON */ }
       }
     }
@@ -92,6 +103,13 @@ async function send() {
         <span>{{ m.content || (m.role === 'ai' ? '…' : '') }}</span>
       </li>
     </ul>
+
+    <div v-if="references.length" class="refs">
+      <div class="refs-title">引用来源</div>
+      <div v-for="r in references" :key="r.id" class="ref-item">
+        [{{ r.id }}] 《{{ r.title }}》
+      </div>
+    </div>
 
     <form class="input" @submit.prevent="send">
       <input
@@ -141,4 +159,16 @@ header h1 { font-size: 20px; margin: 0 0 4px; }
   background: #1f6feb; color: #fff; font-size: 14px; cursor: pointer;
 }
 .input button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.refs {
+  margin: 0 0 12px;
+  padding: 10px 14px;
+  background: #fff;
+  border: 1px solid #e3e3e6;
+  border-radius: 10px;
+  font-size: 12px;
+  color: #555;
+}
+.refs-title { font-weight: 600; margin-bottom: 6px; color: #333; }
+.ref-item { margin: 2px 0; }
 </style>
