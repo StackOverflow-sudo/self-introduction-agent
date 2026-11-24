@@ -19,6 +19,10 @@ dependencies = [
     "chromadb>=1.5.9",
     "pymilvus>=3.0.3",
     "langchain-milvus>=0.4.0",
+    "langchain>=1.5.2",
+    "langchain-openai>=1.8.5",
+    "langgraph>=1.2.24",
+    "milvus-lite>=3.2.2",
 ]
 
 [tool.uv]
