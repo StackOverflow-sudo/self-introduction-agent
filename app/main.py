@@ -12,6 +12,7 @@ from app.routers.chat import router as chat_router
 from app.routers.chat_thread import router as chat_thread_router
 from app.routers.conversation import router as conversation_router
 from app.routers.product import router as product_router
+from app.routers.project import router as project_router
 
 setup_logging()
 logger = get_logger(__name__)
@@ -40,6 +41,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title=settings.APP_NAME, version="0.1.0", lifespan=lifespan)
 
 app.include_router(product_router)
+app.include_router(project_router)
 app.include_router(conversation_router)
 app.include_router(chat_router)
 app.include_router(chat_thread_router)
