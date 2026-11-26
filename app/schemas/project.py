@@ -13,6 +13,7 @@ class ProjectBase(BaseModel):
     category: str = Field(default="", max_length=64, description="方向：agent / ml，逗号分隔")
     period: str = Field(default="", max_length=64, description="项目时间，如 2026.06 – 2026.09")
     award: str = Field(default="", max_length=128, description="奖项与位次，如 国家三等奖 ｜ 位次 1/3")
+    model_glb: str = Field(default="", max_length=255, description="3D 模型路径，空=不展示")
     sort_order: int = Field(default=0, description="排序（小的在前）")
 
 
@@ -32,6 +33,7 @@ class ProjectUpdate(BaseModel):
     category: str | None = None
     period: str | None = None
     award: str | None = None
+    model_glb: str | None = None
     sort_order: int | None = None
 
 

@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import BiliPlayer from './BiliPlayer.vue'
+import Hero3D from './Hero3D.vue'
 
 const props = defineProps({
   project: { type: Object, required: true },
@@ -65,9 +66,15 @@ const paragraphs = computed(() =>
       </div>
     </div>
 
-    <!-- ===== 下半：详细描述 ===== -->
-    <div v-if="paragraphs.length" class="detail">
-      <p v-for="(p, i) in paragraphs" :key="i">{{ p }}</p>
+    <!-- ===== 下半：详细描述（+ 可选 3D 模型） ===== -->
+    <div v-if="paragraphs.length" class="detail-row" :class="{ 'no-model': !project.model_glb }">
+      <div class="detail">
+        <p v-for="(p, i) in paragraphs" :key="i">{{ p }}</p>
+      </div>
+
+      <div v-if="project.model_glb" class="model">
+        <Hero3D :src="project.model_glb" :alt="`${project.name} 3D 展示`" />
+      </div>
     </div>
   </article>
 </template>
@@ -212,10 +219,21 @@ const paragraphs = computed(() =>
 }
 .links a:hover { text-decoration: underline; }
 
-/* ---------- 下半：详细描述 ---------- */
-.detail {
+/* ---------- 下半：详细描述 + 3D 模型 ---------- */
+.detail-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: clamp(20px, 4vw, 48px);
+  align-items: start;
   margin-top: clamp(22px, 3.5vw, 40px);
-  max-width: 76ch;
+}
+
+/* 没有 3D 模型时：详细描述独占整行 */
+.detail-row.no-model {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.detail {
   padding-left: clamp(0px, 1vw, 12px);
   border-left: 2px solid rgba(99, 102, 241, 0.1);
 }
@@ -227,6 +245,14 @@ const paragraphs = computed(() =>
   line-height: 1.95;
 }
 .detail p:last-child { margin-bottom: 0; }
+
+/* 右侧 3D 模型：滚动时吸附 */
+.model {
+  position: sticky;
+  top: 100px;
+  display: flex;
+  justify-content: center;
+}
 
 /* ---------- 响应式 ---------- */
 @media (max-width: 860px) {
@@ -241,5 +267,8 @@ const paragraphs = computed(() =>
 
   .detail { border-left: none; padding-left: 0; }
   .detail p { padding-left: 0; }
+
+  .detail-row { grid-template-columns: minmax(0, 1fr); }
+  .model { position: static; }
 }
 </style>

@@ -19,4 +19,5 @@ class Project(Base):
     category: Mapped[str] = mapped_column(String(64), nullable=False, default="")
     period: Mapped[str] = mapped_column(String(64), nullable=False, default="")
     award: Mapped[str] = mapped_column(String(128), nullable=False, default="")
+    model_glb: Mapped[str] = mapped_column(String(255), nullable=False, default="")
     sort_order: Mapped[int] = mapped_column(Integer, nullable=False, default=0)

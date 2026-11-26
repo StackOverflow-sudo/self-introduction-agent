@@ -138,9 +138,9 @@ const skills = [
           </p>
 
           <div class="cta">
-            <RouterLink to="/agent" class="btn primary">看 AI Agent 方向</RouterLink>
-            <RouterLink to="/ml" class="btn primary">看机器学习方向</RouterLink>
-            <RouterLink to="/chat" class="btn">和数字分身聊聊</RouterLink>
+            <RouterLink to="/agent" class="btn">看 AI Agent 方向</RouterLink>
+            <RouterLink to="/ml" class="btn">看机器学习方向</RouterLink>
+            <RouterLink to="/chat" class="btn primary">和数字分身聊聊</RouterLink>
           </div>
         </div>
 
