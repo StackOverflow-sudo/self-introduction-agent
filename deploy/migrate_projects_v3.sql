@@ -13,6 +13,9 @@ ALTER TABLE projects ADD COLUMN IF NOT EXISTS award VARCHAR(128) NOT NULL DEFAUL
 ALTER TABLE projects ADD COLUMN IF NOT EXISTS model_glb VARCHAR(255) NOT NULL DEFAULT '';
 ALTER TABLE projects ADD COLUMN IF NOT EXISTS sort_order INT          NOT NULL DEFAULT 0;
 
+-- 旧 schema 残留字段（新模型不再使用）
+ALTER TABLE projects DROP COLUMN IF EXISTS url;
+
 DELETE FROM projects;
 
 INSERT INTO projects (id, name, summary, description, tech_stack, github, demo, bvid, cover, category, period, award, model_glb, sort_order) VALUES (1, '个人 AI Agent 平台', '全栈个人网站：FastAPI + Vue 3 + LangGraph，支持意图路由、父子块 RAG 与引用溯源。', '独立开发的个人数字分身平台，目标是把"自我介绍"做成一个可以对话的产品，而不是静态页面。

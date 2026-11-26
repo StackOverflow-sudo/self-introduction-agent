@@ -115,8 +115,8 @@ const src = computed(() => {
   place-items: center;
   font-size: clamp(18px, 3vw, 24px);
   background: rgba(255, 255, 255, 0.22);
-  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.5);
   transition: transform 0.2s, background 0.2s;
 }

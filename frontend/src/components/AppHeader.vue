@@ -26,8 +26,8 @@ import { RouterLink } from 'vue-router'
 
   /* ---------- 磨砂玻璃三件套 ---------- */
   background: rgba(255, 255, 255, 0.75);                    /* 半透明（越低越透）*/
-  backdrop-filter: blur(20px) saturate(180%);               /* 模糊 + 提饱和 */
   -webkit-backdrop-filter: blur(20px) saturate(180%);       /* Safari */
+  backdrop-filter: blur(20px) saturate(180%);               /* 模糊 + 提饱和 */
   border-bottom: 1px solid rgba(255, 255, 255, 0.65);       /* 半透明分隔线 */
 
   box-shadow:

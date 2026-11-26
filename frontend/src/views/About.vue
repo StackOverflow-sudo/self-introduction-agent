@@ -111,8 +111,8 @@ const goals = [
 }
 .card {
   background: rgba(255, 255, 255, 0.68);
-  backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 18px;
   padding: clamp(16px, 2.5vw, 24px);
