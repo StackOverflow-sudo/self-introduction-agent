@@ -1,6 +1,7 @@
 <script setup>
 import AppHeader from './components/AppHeader.vue'
 import AppFooter from './components/AppFooter.vue'
+import TwinOrb from './components/TwinOrb.vue'
 </script>
 
 <template>
@@ -12,6 +13,9 @@ import AppFooter from './components/AppFooter.vue'
     </main>
 
     <AppFooter />
+
+    <!-- 右下角悬浮呼吸球：数字分身入口 -->
+    <TwinOrb />
   </div>
 </template>
 

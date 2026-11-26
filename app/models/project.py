@@ -16,4 +16,5 @@ class Project(Base):
     demo: Mapped[str] = mapped_column(String(255), nullable=False, default="")
     bvid: Mapped[str] = mapped_column(String(64), nullable=False, default="")
     cover: Mapped[str] = mapped_column(String(255), nullable=False, default="")
+    category: Mapped[str] = mapped_column(String(64), nullable=False, default="")
     sort_order: Mapped[int] = mapped_column(Integer, nullable=False, default=0)

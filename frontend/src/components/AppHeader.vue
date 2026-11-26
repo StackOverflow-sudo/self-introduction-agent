@@ -4,13 +4,13 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <header class="header">
-    <RouterLink to="/" class="logo">我的数字空间</RouterLink>
+    <RouterLink to="/" class="logo">王瑞琦</RouterLink>
 
     <nav class="nav">
-      <RouterLink to="/">首页</RouterLink>
-      <RouterLink to="/projects">作品集</RouterLink>
-      <RouterLink to="/chat">AI 对话</RouterLink>
-      <RouterLink to="/about">关于我</RouterLink>
+      <RouterLink to="/" active-class="" exact-active-class="router-link-active">首页</RouterLink>
+      <RouterLink to="/agent">Agent 开发方向</RouterLink>
+      <RouterLink to="/ml">机器学习方向</RouterLink>
+      <RouterLink to="/about">自我评价</RouterLink>
     </nav>
   </header>
 </template>
@@ -23,11 +23,17 @@ import { RouterLink } from 'vue-router'
   flex-wrap: wrap;
   gap: 8px 16px;
   padding: clamp(10px, 2vw, 16px) var(--gutter);
-  background: rgba(255, 255, 255, 0.72);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 14px rgba(30, 41, 59, 0.05);
+
+  /* ---------- 磨砂玻璃三件套 ---------- */
+  background: rgba(255, 255, 255, 0.75);                    /* 半透明（越低越透）*/
+  backdrop-filter: blur(20px) saturate(180%);               /* 模糊 + 提饱和 */
+  -webkit-backdrop-filter: blur(20px) saturate(180%);       /* Safari */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.65);       /* 半透明分隔线 */
+
+  box-shadow:
+    0 4px 24px rgba(30, 41, 59, 0.07),                      /* 下方投影 */
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);                 /* 顶部高光（玻璃边缘）*/
+
   position: sticky;
   top: 0;
   z-index: 50;

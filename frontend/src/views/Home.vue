@@ -27,16 +27,40 @@ onMounted(async () => {
 const demos = computed(() => projects.value.filter((p) => p.bvid))
 
 const timeline = [
-  { year: '2026', title: 'AI Agent 全栈开发', desc: '从零搭建 FastAPI + Vue + LangGraph 的个人 Agent 平台，并部署上线。' },
-  { year: '2025', title: '后端开发', desc: 'Java / Spring Boot 后端开发，熟悉分层架构与接口设计。' },
-  { year: '2024', title: '打基础', desc: 'Linux、数据库、计算机网络等基础。' },
+  {
+    year: '2025.09',
+    title: '南安普顿大学 · 人工智能硕士',
+    desc: '课程：深度学习、计算机视觉、自然语言处理、智能体。预计 2026.11 毕业。',
+  },
+  {
+    year: '2026',
+    title: '个人 AI Agent 平台（独立开发）',
+    desc: 'FastAPI + Vue 3 + LangGraph 全栈实现，父子块 RAG 检索 + 引用溯源 + 会话记忆，Docker 部署上线。',
+  },
+  {
+    year: '2021.09',
+    title: '浙江理工大学 · 计算机科学与技术 学士',
+    desc: '打基础：数据结构、操作系统、计算机网络、数据库。2025.06 毕业。',
+  },
 ]
 
 const skills = [
-  { group: '后端', items: ['Python', 'FastAPI', 'SQLAlchemy', 'MySQL', 'PostgreSQL'] },
-  { group: '前端', items: ['Vue 3', 'Vite', 'CSS'] },
-  { group: 'AI', items: ['LangChain', 'LangGraph', 'RAG', 'Milvus', 'Prompt'] },
-  { group: '运维', items: ['Linux', 'Docker', 'Nginx'] },
+  {
+    group: '编程与工程',
+    items: ['Python', 'C++（基础）', 'Java', 'Git', 'Linux', 'Docker', 'Nginx'],
+  },
+  {
+    group: '模型与视觉',
+    items: ['PyTorch', 'Transformer', 'YOLO', 'ResNet', 'ConvNeXt', 'OpenCV'],
+  },
+  {
+    group: 'LLM & Agent',
+    items: ['LangChain', 'LangGraph', 'RAG', 'Milvus', 'Prompt', 'ChatGLM-6B'],
+  },
+  {
+    group: '数据与后端',
+    items: ['NumPy', 'pandas', 'Matplotlib', 'FastAPI', 'SQLAlchemy', 'MySQL', 'PostgreSQL', 'Spring Boot'],
+  },
 ]
 </script>
 
@@ -47,11 +71,12 @@ const skills = [
       <div class="container hero-inner">
         <div class="hero-text">
           <p class="eyebrow">你好，我是</p>
-          <h1>[你的名字]</h1>
-          <p class="tagline">后端工程师 · AI Agent 开发者</p>
+          <h1>王瑞琦</h1>
+          <p class="tagline">多模态算法工程师 · LLM Agent 研发</p>
           <p class="intro">
-            写 Java 出身，现在用 Python 构建 AI Agent 全栈应用。
-            喜欢把复杂的东西拆开、讲清楚、再落地成能跑的系统。
+            南安普顿大学人工智能硕士，关注 LLM Agent 的可靠性与工程化落地。
+            做过 LLM 行为树可靠性评估、卫星图像多标签分类、大模型数字人交互平台；
+            相信"能跑起来、能量化"才算真正做完。
           </p>
 
           <div class="cta">
@@ -68,7 +93,7 @@ const skills = [
     </section>
 
     <!-- 演示视频 -->
-    <section v-if="demos.length" class="section reveal">
+    <!-- <section v-if="demos.length" class="section reveal">
       <div class="container">
         <h2>项目演示</h2>
         <p class="section-sub">点击封面播放（B 站）</p>
@@ -82,7 +107,7 @@ const skills = [
           />
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- ② 作品集（数据来自后端 /api/projects） -->
     <section class="section reveal">
