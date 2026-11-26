@@ -1,7 +1,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import ProjectCard from '../components/ProjectCard.vue'
+import ProjectSection from '../components/ProjectSection.vue'
 import { useReveal } from '../composables/useReveal'
 import { listProjects } from '../api/projects'
 
@@ -47,8 +47,13 @@ watch(track, load, { immediate: true })
       <p v-else-if="error" class="state error">加载失败：{{ error }}</p>
       <p v-else-if="!projects.length" class="state">暂无项目</p>
 
-      <div v-else class="grid">
-        <ProjectCard v-for="p in projects" :key="p.id" :project="p" />
+      <div v-else class="list">
+        <ProjectSection
+          v-for="(p, i) in projects"
+          :key="p.id"
+          :project="p"
+          :index="i"
+        />
       </div>
     </section>
 
@@ -97,10 +102,9 @@ watch(track, load, { immediate: true })
 .state { color: var(--text-dim); font-size: 14px; }
 .state.error { color: #dc2626; }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-  gap: clamp(14px, 2.5vw, 24px);
+.list {
+  display: flex;
+  flex-direction: column;
 }
 
 .skills {

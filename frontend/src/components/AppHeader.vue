@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <header class="header">
-    <RouterLink to="/" class="logo">王瑞琦</RouterLink>
+    <RouterLink to="/" class="logo">自我介绍网站，您好！</RouterLink>
 
     <nav class="nav">
       <RouterLink to="/" active-class="" exact-active-class="router-link-active">首页</RouterLink>
@@ -41,7 +41,7 @@ import { RouterLink } from 'vue-router'
 
 .logo {
   font-weight: 800;
-  font-size: clamp(15px, 2vw, 18px);
+  font-size: clamp(13px, 2vw, 15px);
   background: var(--grad);
   -webkit-background-clip: text;
   background-clip: text;
